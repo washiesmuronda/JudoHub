@@ -1,20 +1,16 @@
 import { useState, useEffect } from 'react';
 
-// Announcement data - Easy to update for Admin
-const announcements = [
-  "National Ranking Tournament entries now open",
-  "SA Open registration closes soon",
-  "Technical Course at Alexandra Sports Club",
-  "Cadet and Junior training camp dates to be confirmed"
-];
-
-const AnnouncementBar = () => {
+const AnnouncementBar = ({ announcements = [], tickerSpeed = 'normal' }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fading, setFading] = useState(false); // State to control fade effect
 
   // Auto-rotate every 4 seconds
   useEffect(() => {
     if (announcements.length === 0) return;
+    
+    const speeds = { slow: 6000, normal: 4000, fast: 2000 };
+    const duration = speeds[tickerSpeed] || 4000;
+
     const timer = setInterval(() => {
       setFading(true); // Start fade out
       const fadeOutTimer = setTimeout(() => {
@@ -23,9 +19,9 @@ const AnnouncementBar = () => {
       }, 300); // Match CSS fade-out duration
 
       return () => clearTimeout(fadeOutTimer);
-    }, 4000);
+    }, duration);
     return () => clearInterval(timer);
-  }, []);
+  }, [announcements.length, tickerSpeed]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + announcements.length) % announcements.length);
@@ -56,8 +52,8 @@ const AnnouncementBar = () => {
         {announcements.length > 0 ? (
           <div className="announcement-content">
             <button className="nav-arrow" onClick={() => handleManualNav((currentIndex - 1 + announcements.length) % announcements.length)}>&lsaquo;</button>
-            <span className={`announcement-text ${fading ? 'fade-out' : 'fade-in'}`}>
-              <span className="counter">{currentIndex + 1}/{announcements.length}</span> {announcements[currentIndex]}
+            <span className={`announcement-text ${fading ? 'fade-out' : 'fade-in'}`} key={announcements[currentIndex]?.id}>
+              {currentIndex + 1}. {announcements[currentIndex]?.text || ""}
             </span>
             <button className="nav-arrow" onClick={() => handleManualNav((currentIndex + 1) % announcements.length)}>&rsaquo;</button>
           </div>

@@ -360,6 +360,61 @@ body {
 .event-details h4 { font-size: 0.95rem; margin: 0; }
 .event-details p { font-size: 0.75rem; color: #777; margin: 2px 0 0; }
 
+/* Admin Dashboard Layout */
+.admin-container {
+  display: flex;
+  min-height: 80vh;
+  gap: 20px;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background: #f9f9f9;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.admin-main {
+  flex: 1;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+  overflow-y: auto;
+}
+
+.admin-nav-item {
+  padding: 12px 15px;
+  border: none;
+  background: none;
+  text-align: left;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.admin-nav-item:hover {
+  background: #eee;
+}
+
+.admin-nav-item.active {
+  background: var(--zim-green);
+  color: white;
+}
+
+.admin-section {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Announcement Bar Styles */
 .announcement-bar {
   margin: 1rem 0;
